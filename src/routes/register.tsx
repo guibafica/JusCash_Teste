@@ -10,6 +10,8 @@ import { Loading } from "../components/Loading";
 
 import { getValidationErrors } from "../utils/getValidationErrors";
 
+import { UseUser } from "../hooks/user";
+
 import jusCashLogo from "../assets/jusCashLogo.png";
 
 interface IFormDataProps {
@@ -22,6 +24,7 @@ interface IFormDataProps {
 export function Register() {
   const formRef = useRef(null);
   const navigate = useNavigate();
+  const { createUser, users } = UseUser();
 
   const [loading, setLoading] = useState(false);
 
@@ -63,8 +66,15 @@ export function Register() {
         });
 
         // api request
+        createUser({
+          email: data.email,
+          fullName: data.fullName,
+          password: data.password,
+        });
 
         toast.success("Conta criada com sucesso!");
+
+        console.log("ARRAY: ", users);
 
         navigate("/signIn");
 
@@ -86,7 +96,7 @@ export function Register() {
         toast.error("Error desconhecido, tente novamente mais tarde");
       }
     },
-    [navigate]
+    [navigate, createUser, users]
   );
 
   const handleNavigateToSignIn = useCallback(() => {

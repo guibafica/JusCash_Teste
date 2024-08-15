@@ -6,6 +6,8 @@ import { Toaster } from "sonner";
 import { Register } from "./routes/register";
 import { Login } from "./routes/login";
 
+import { AppProvider } from "./hooks";
+
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -21,7 +23,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    <Toaster />
+    <AppProvider>
+      <RouterProvider router={router} />
+      <Toaster />
+    </AppProvider>
   </React.StrictMode>
 );
