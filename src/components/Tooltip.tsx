@@ -8,7 +8,7 @@ interface ITooltipProps {
 export const Tooltip = ({ title, children }: ITooltipProps) => {
   return (
     <>
-      <div className="relative group">
+      <div className="relative group ml-3">
         {children}
 
         <span
