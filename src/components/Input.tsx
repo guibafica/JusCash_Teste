@@ -65,9 +65,9 @@ export const Input = ({
 
       <div
         className={twMerge(
-          "flex items-center justify-between border border-solid w-full transition-all border-main-blue duration-400 ease-in-out h-9 rounded-md px-2 bg-white focus:border-slate-400 focus:shadow-md",
-          error ? "border-red-700" : "",
+          "flex items-center justify-between border border-solid w-full transition-all border-main-blue duration-400 ease-in-out h-9 rounded-md px-2 bg-white",
           isFilled ? "border-main-green" : "border-main-blue",
+          error ? "border-red-700" : "",
           disabled && "bg-slate-200 cursor-not-allowed border-slate-300"
         )}
       >
