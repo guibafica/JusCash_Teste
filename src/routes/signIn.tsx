@@ -49,8 +49,6 @@ export function SignIn() {
 
         const token = await signIn(data);
 
-        console.log(token);
-
         if (token) navigate("/home");
 
         setLoading(false);
