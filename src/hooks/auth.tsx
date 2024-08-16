@@ -6,6 +6,7 @@ import React, {
   ReactNode,
 } from "react";
 import { toast } from "sonner";
+import { compare } from "bcryptjs";
 
 import { UseUser } from "./user";
 
@@ -26,7 +27,7 @@ interface ISignInProps {
 
 interface IAuthContextData {
   user: ILoggedUser;
-  signIn(payload: ISignInProps): void;
+  signIn(payload: ISignInProps): Promise<string | undefined>;
   signOut(): void;
 }
 
@@ -53,7 +54,7 @@ export const AuthProvider: React.FC<IAppProviderProps> = ({ children }) => {
   });
 
   const signIn = useCallback(
-    async ({ email, password }: ISignInProps) => {
+    async ({ email, password }: ISignInProps): Promise<string | undefined> => {
       const foundedUser = getUser(email);
 
       if (!foundedUser) {
@@ -62,26 +63,34 @@ export const AuthProvider: React.FC<IAppProviderProps> = ({ children }) => {
         return;
       }
 
-      toast.success("ENCONTROU");
+      const isTheSamePassword = await compare(password, foundedUser.password);
 
-      // const response = await api.post('sessions', {
-      //   email,
-      //   password,
-      // });
+      if (!isTheSamePassword) {
+        toast.error("Senha incorreta");
 
-      // const { token, user } = response.data;
+        return;
+      }
 
-      // localStorage.setItem('@GoBarber:token', token);
-      // localStorage.setItem('@GoBarber:user', JSON.stringify(user));
+      const user = {
+        id: foundedUser.id,
+        name: foundedUser.fullName,
+        email: foundedUser.email,
+      };
+      const token = "fake-token";
 
-      // setData({ token, user });
+      localStorage.setItem("@jusCash:token", token);
+      localStorage.setItem("@jusCash:auth", JSON.stringify(user));
+
+      setData({ token, user });
+
+      return token;
     },
     [getUser]
   );
 
   const signOut = useCallback(() => {
-    localStorage.removeItem("@GoBarber:token");
-    localStorage.removeItem("@GoBarber:user");
+    localStorage.removeItem("@jusCash:token");
+    localStorage.removeItem("@jusCash:auth");
 
     setData({} as IAuthState);
   }, []);

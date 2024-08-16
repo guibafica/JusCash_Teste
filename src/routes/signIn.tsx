@@ -11,6 +11,8 @@ import { SignInBubblesBG } from "../components/SignInBubblesBG";
 
 import { getValidationErrors } from "../utils/getValidationErrors";
 
+import { UseAuth } from "../hooks/auth";
+
 import typingVideo from "../assets/typingVideo1.mp4";
 import jusCashLogo from "../assets/jusCashLogo.png";
 
@@ -22,6 +24,7 @@ interface IFormDataProps {
 export function SignIn() {
   const formRef = useRef(null);
   const navigate = useNavigate();
+  const { signIn } = UseAuth();
 
   const [loading, setLoading] = useState(false);
 
@@ -44,9 +47,11 @@ export function SignIn() {
           abortEarly: false,
         });
 
-        // api request
+        const token = await signIn(data);
 
-        navigate("/home");
+        console.log(token);
+
+        if (token) navigate("/home");
 
         setLoading(false);
       } catch (error) {
@@ -66,7 +71,7 @@ export function SignIn() {
         toast.error("Error desconhecido, tente novamente mais tarde");
       }
     },
-    [navigate]
+    [navigate, signIn]
   );
 
   const handleNavigateToRegister = useCallback(() => {
@@ -91,7 +96,7 @@ export function SignIn() {
           />
         </div>
 
-        <div className="h-[200vh] w-full absolute -right-[40%] rotate-12 bg-main-blue flex items-start max-sm:hidden" />
+        <div className="h-[200vh] w-full absolute -right-[40%] border-l-8 border-blue-900 rotate-12 bg-main-blue flex items-start max-sm:hidden" />
 
         <div className="w-1/2 h-full flex items-center justify-center z-40 max-sm:w-full max-sm:absolute">
           <div className="z-20 px-8 pb-3 pt-6 bg-white w-[450px] rounded-lg flex flex-col items-center justify-center shadow-xl gap-8 max-sm:w-11/12">

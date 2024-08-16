@@ -14,6 +14,9 @@ export default {
       backgroundImage: {
         "computer-typing": "url('/src/assets/typing.jpg')",
       },
+      animation: {
+        "pulse-slow": "pulse 4s linear infinite",
+      },
     },
   },
   plugins: [],

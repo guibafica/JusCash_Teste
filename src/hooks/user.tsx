@@ -7,8 +7,10 @@ import React, {
   useEffect,
 } from "react";
 import { hash } from "bcryptjs";
+import { v4 as uuidv4 } from "uuid";
 
 interface IUserProps {
+  id: string;
   fullName: string;
   email: string;
   password: string;
@@ -35,11 +37,12 @@ export const UserProvider: React.FC<IAppProviderProps> = ({ children }) => {
     async (payload: IUserProps) => {
       const hashedPassword = await hash(payload.password, 8);
 
-      console.log("SENHA: ", hashedPassword);
+      const generatedId = uuidv4();
 
       const newUsersArray: IUserProps[] = [
         ...users,
         {
+          id: generatedId,
           email: payload.email,
           fullName: payload.fullName,
           password: hashedPassword,
@@ -77,6 +80,7 @@ export const UserProvider: React.FC<IAppProviderProps> = ({ children }) => {
     }
 
     const defaultUser = {
+      id: uuidv4(),
       fullName: "John Doe",
       email: "johnDoe@email.com",
       password: "123456",

@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 
 import { Register } from "./routes/register";
 import { SignIn } from "./routes/signIn";
+import { Home } from "./routes/home";
 
 import { AppProvider } from "./hooks";
 
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
   },
 ]);
 
