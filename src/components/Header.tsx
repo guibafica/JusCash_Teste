@@ -5,7 +5,7 @@ import { Button } from "../components/Button";
 
 import { UseAuth } from "../hooks/auth";
 
-import favIcon from "../../public/favIcon.png";
+import favIcon from "/favIcon.png";
 
 export const Header = () => {
   const { user, signOut } = UseAuth();

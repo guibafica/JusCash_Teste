@@ -4,18 +4,30 @@ import { Loading } from "../components/Loading";
 import { Header } from "../components/Header";
 import { Button } from "../components/Button";
 import { LeadTable } from "../components/LeadTable";
+import { AddLeadModal } from "../components/AddLeadModal";
 
 import jusCashLogo from "../assets/jusCashLogo-noBg.png";
 
 export function Home() {
   const [loading, setLoading] = useState(false);
+  const [isAddLeadModalOpen, setIsAddLeadModalOpen] = useState(false);
 
-  const handleOpenNewLeadModal = useCallback(() => {}, []);
+  const handleOpenNewLeadModal = useCallback(() => {
+    setIsAddLeadModalOpen(true);
+  }, []);
+
+  const handleCloseNewLeadModal = useCallback(() => {
+    setIsAddLeadModalOpen(false);
+  }, []);
 
   return (
     <>
       <Loading isLoading={loading} />
       <Header />
+      <AddLeadModal
+        isOpen={isAddLeadModalOpen}
+        onClose={handleCloseNewLeadModal}
+      />
 
       <div className="h-screen w-screen flex items-center justify-center bg-slate-100">
         <div className="h-full w-full max-w-7xl px-10 pt-14 flex flex-col items-center justify-start max-sm:px-5">
