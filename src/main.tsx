@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "sonner";
 
 import { Register } from "./routes/register";
-import { Login } from "./routes/login";
+import { SignIn } from "./routes/signIn";
 
 import { AppProvider } from "./hooks";
 
@@ -17,7 +17,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/signIn",
-    element: <Login />,
+    element: <SignIn />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 

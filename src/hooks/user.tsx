@@ -6,6 +6,7 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
+import { hash } from "bcryptjs";
 
 interface IUserProps {
   fullName: string;
@@ -31,8 +32,19 @@ export const UserProvider: React.FC<IAppProviderProps> = ({ children }) => {
   const [users, setUsers] = useState<IUserProps[]>([]);
 
   const createUser = useCallback(
-    (payload: IUserProps) => {
-      const newUsersArray = [...users, payload];
+    async (payload: IUserProps) => {
+      const hashedPassword = await hash(payload.password, 8);
+
+      console.log("SENHA: ", hashedPassword);
+
+      const newUsersArray: IUserProps[] = [
+        ...users,
+        {
+          email: payload.email,
+          fullName: payload.fullName,
+          password: hashedPassword,
+        },
+      ];
 
       localStorage.setItem("@jusCash:users", JSON.stringify(newUsersArray));
       setUsers(newUsersArray);

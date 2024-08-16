@@ -24,7 +24,7 @@ interface IFormDataProps {
 export function Register() {
   const formRef = useRef(null);
   const navigate = useNavigate();
-  const { createUser, users } = UseUser();
+  const { createUser } = UseUser();
 
   const [loading, setLoading] = useState(false);
 
@@ -74,8 +74,6 @@ export function Register() {
 
         toast.success("Conta criada com sucesso!");
 
-        console.log("ARRAY: ", users);
-
         navigate("/signIn");
 
         setLoading(false);
@@ -96,7 +94,7 @@ export function Register() {
         toast.error("Error desconhecido, tente novamente mais tarde");
       }
     },
-    [navigate, createUser, users]
+    [navigate, createUser]
   );
 
   const handleNavigateToSignIn = useCallback(() => {
