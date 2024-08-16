@@ -10,7 +10,7 @@ import { hash } from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
 
 interface IUserProps {
-  id: string;
+  id?: string;
   fullName: string;
   email: string;
   password: string;

@@ -9,7 +9,7 @@ import { AddLeadModal } from "../components/AddLeadModal";
 import jusCashLogo from "../assets/jusCashLogo-noBg.png";
 
 export function Home() {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [isAddLeadModalOpen, setIsAddLeadModalOpen] = useState(false);
 
   const handleOpenNewLeadModal = useCallback(() => {
